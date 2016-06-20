@@ -17,17 +17,14 @@
     "url": "https://github.com/combinejs/directives-provider/issues"
   },
   "homepage": "https://github.com/combinejs/directives-provider#readme",
-  "dependencies": {
-    "@combinejs/empty-directive": "^0.1.2",
-    "@combinejs/match-directive": "^0.1.0"
-  },
   "devDependencies": {
     "chai": "^3.5.0",
     "coveralls": "^2.11.9",
     "istanbul": "^0.4.3",
     "mkdirp": "^0.5.1",
     "mocha": "^2.5.3",
-    "rimraf": "^2.5.2"
+    "rimraf": "^2.5.2",
+    "@combinejs/empty-directive": "^0.1.2"
   },
   "files": [
     "LICENSE",
