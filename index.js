@@ -19,7 +19,7 @@ class DirectiveProvider {
      * @param name {String} directive name
      * @returns {*}
      */
-    prodive(name) {
+    provide(name) {
         let cwd = process.cwd();
 
         if (! this._directives[name]) {
@@ -41,12 +41,12 @@ class DirectiveProvider {
      * For special case you can define directive manual
      *
      * @param name {String} directive name
-     * @param directive {LikeDirectiveObject}
+     * @param directive {EmptyDirective}
      */
     define(name, directive) {
         this._directives[name] = directive;
     }
 }
 
-module.exports = DirectiveProvider;
+module.exports = new DirectiveProvider();
 

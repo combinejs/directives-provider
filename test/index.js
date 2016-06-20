@@ -1,11 +1,11 @@
 /* global before, after, beforeEach, describe, it */
 
-const expect             = require('chai').expect,
+const {expect, assert}   = require('chai'),
       mkdirp             = require('mkdirp'),
       rimraf             = require('rimraf'),
       fs                 = require('fs'),
       path               = require('path'),
-      directivesProvider = require('../index');
+      DP                 = require('../index');
 
 before('create project defined directives', function() {
     mkdirp.sync(path.resolve('./combine/directives/test1-directive'));
@@ -20,41 +20,65 @@ before('create project defined directives', function() {
 });
 
 describe('provide directives', function() {
-    it('provide %PROJECT%/combine/directives/%NAME%-directive/index.js', function() {
+
+    it('provide from [PROJECT]/combine/directives/[NAME]-directive/index.js', function() {
         expect(function() {
-            directivesProvider('test1');
+            DP.provide('test1');
         }).to.not.throw(Error);
     });
 
-    it('provide %PROJECT%/combine/directives/%NAME%/index.js', function() {
+    it('provide from [PROJECT]/combine/directives/[NAME]/index.js', function() {
         expect(function() {
-            directivesProvider('test2');
+            DP.provide('test2');
         }).to.not.throw(Error);
     });
 
-    it('provide %PROJECT%/combine/directives/%NAME%.js', function() {
+    it('provide from [PROJECT]/combine/directives/[NAME].js', function() {
         expect(function () {
-            directivesProvider('test3');
+            DP.provide('test3');
         }).to.not.throw(Error);
     });
 
-    it('provide %PROJECT%/combine/directives/%NAME%-directive.js', function() {
+    it('provide from [PROJECT]/combine/directives/[NAME]-directive.js', function() {
         expect(function () {
-            directivesProvider('test4');
+            DP.provide('test4');
         }).to.not.throw(Error);
     });
 
-    it('provide node_modules', function() {
+    it('provide from node_modules', function() {
         expect(function() {
-            directivesProvider('match');
+            DP.provide('match');
         }).to.not.throw(Error);
     });
 });
 
+describe('define and provide special case', function() {
+    it('compare', function() {
+        class Test5Directive {
+            constructor() {
+
+            }
+
+            run() {
+
+            }
+
+            pitch() {
+
+            }
+        }
+
+        DP.define('test5', Test5Directive);
+
+        assert.equal(DP.provide('test5'), Test5Directive);
+    });
+});
+
 describe('provide directives fail', function() {
+
     it('provide', function() {
         expect(function() {
-            directivesProvider('not-existed');
+            DP.provide('not-existed');
         }).to.throw();
     });
 });
